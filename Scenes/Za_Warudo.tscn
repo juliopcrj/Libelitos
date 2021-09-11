@@ -1,3 +1,21 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Libelitos.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Marimba.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node2D"]
+
+[node name="Libelitos" parent="." instance=ExtResource( 1 )]
+position = Vector2( 84, 282 )
+
+[node name="Marimba" parent="." instance=ExtResource( 2 )]
+position = Vector2( 39.75, 34.625 )
+
+[node name="Marimba2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 140.75, 91.625 )
+
+[node name="Marimba3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 35.75, 96.625 )
+
+[node name="Marimba4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 133.75, 42.625 )
