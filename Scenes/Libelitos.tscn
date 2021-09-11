@@ -25,4 +25,7 @@ shape = SubResource( 1 )
 [node name="bulletTimer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="iFrameTimer" type="Timer" parent="."]
 [connection signal="timeout" from="bulletTimer" to="." method="_on_bulletTimer_timeout"]
+[connection signal="timeout" from="iFrameTimer" to="." method="_on_iFrameTimer_timeout"]

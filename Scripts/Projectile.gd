@@ -2,11 +2,6 @@ extends KinematicBody2D
 
 const velocity = Vector2()
 
-
-func _ready():
-	velocity.y = -300
-	pass
-	
 func prepare(x, y):
 	velocity.x = x
 	velocity.y = y
