@@ -10,12 +10,3 @@ position = Vector2( 84, 282 )
 
 [node name="Marimba" parent="." instance=ExtResource( 2 )]
 position = Vector2( 39.75, 34.625 )
-
-[node name="Marimba2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 140.75, 91.625 )
-
-[node name="Marimba3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 35.75, 96.625 )
-
-[node name="Marimba4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 133.75, 42.625 )

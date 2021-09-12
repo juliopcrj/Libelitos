@@ -3,32 +3,22 @@ extends KinematicBody2D
 var SCREEN_SIZE = Vector2(ProjectSettings.get("display/window/size/width"),
 						  ProjectSettings.get("display/window/size/height"))
 
-
 var Projectile = preload("res://Scenes/Projectile.tscn")
 onready var shotTimer = get_node("ShotTimer")
-onready var moveTimer = get_node("MoveTimer")
 
-const SHOTS_PER_SECOND = 5.0
+
+const SHOTS_PER_SECOND = 1.5
 const BULLET_SPEED = 200
-const MOVE_WAIT_TIME = 3
 
 var life:int
 var can_shoot:bool
-var can_move:bool
-var destination = Vector2.ZERO
-var movement = Vector2.ZERO
-var max_shots:int
-var spent_shots
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	can_shoot = true
-	can_move = true
-	randomize()
-	max_shots = randi() % 10 + 5
 	life = 2
-	spent_shots = 0
+	pass # Replace with function body.
 
 func fire():
 	if can_shoot:
@@ -38,19 +28,13 @@ func fire():
 		_p.set_enemy_fire()
 		var main = get_tree().current_scene
 		main.add_child(_p)
-		spent_shots += 1
 		shotTimer.set_wait_time(1/SHOTS_PER_SECOND)
 		shotTimer.start()
 		can_shoot = false
 
-# warning-ignore:unused_argument
 func _process(delta):
-# warning-ignore:return_value_discarded
-	behave()
-	move_and_slide(movement)
-	if spent_shots < max_shots:
-		fire()
-		
+	move_and_slide(Vector2.ZERO)
+	fire()
 	if(get_slide_count()):
 		if(get_slide_collision(0).collider.name != "Libelitos"):
 			take_damage()
@@ -61,26 +45,7 @@ func take_damage():
 		queue_free()
 	pass
 
-#defining minigun marimba's behavior
-func behave():
-	print(position, destination)
-	if position == destination:
-		movement = Vector2.ZERO
-	if can_move:
-		destination = Vector2(abs(float(randi() % int(SCREEN_SIZE.x) - $Sprite.texture.get_width())),
-							 abs(float(randi() % int(SCREEN_SIZE.y) - $Sprite.texture.get_height())))
-		
-		movement =  destination - position
-			
-		can_move = false
-		moveTimer.set_wait_time(3)
-		moveTimer.start()
 
 func _on_ShotTimer_timeout():
 	can_shoot = true
 	shotTimer.stop()
-
-func _on_MoveTimer_timeout():
-	can_move = true
-	moveTimer.stop()
-	

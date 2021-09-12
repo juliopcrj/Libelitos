@@ -4,14 +4,16 @@ var Projectile = preload("res://Scenes/Projectile.tscn")
 var Shot_Sound = preload("res://Sounds/shot.wav")
 
 
-const bullets_per_second = 5.0
 const invincibility_time = 2
-const speed = Vector2()
-const BULLET_SPEED = -300.0
+const movement_reduction = 25 #percentage
 
+
+var bullets_per_second = 5.0
+var speed = Vector2()
 var invincible:bool
 var life:int
 var can_shoot = true
+var bullet_speed = -300.0
 
 onready var bulletTimer = get_node("bulletTimer")
 onready var iFrameTimer = get_node("iFrameTimer")
@@ -31,10 +33,11 @@ func _physics_process(delta):
 func process_inputs():
 	if(Input.is_action_pressed("ui_select")):
 		fire()
-	var horizontal = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	var vertical = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	horizontal = horizontal * speed.x
-	vertical = vertical * speed.y
+	var horizontal:float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var vertical:float = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	var reducto = Input.get_action_strength("player_slow") * movement_reduction
+	horizontal = horizontal * speed.x * (100-reducto)/100
+	vertical = vertical * speed.y * (100-reducto)/100
 	move_and_slide(Vector2(horizontal, vertical))
 	if get_slide_count() > 0:
 		for i in range(get_slide_count()):
@@ -46,8 +49,8 @@ func fire():
 	if(can_shoot):
 		$AudioStreamPlayer2D.play(0)
 		var _p = Projectile.instance()
-		#_p.velocity = Vector2(0, BULLET_SPEED)
-		_p.aim(0, BULLET_SPEED)
+		#_p.velocity = Vector2(0, bullet_speed)
+		_p.aim(0, bullet_speed)
 		_p.set_player_fire()
 		var main = get_tree().current_scene
 		_p.global_position = self.global_position

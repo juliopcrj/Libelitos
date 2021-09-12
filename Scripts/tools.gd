@@ -1,5 +1,5 @@
 tool
 extends EditorScript
 
-func _run():
-	print("Asdasd1234".count("Asdw") > 0)
+func calculate_movement(pos:Vector2, dest:Vector2)->Vector2:
+	return dest-pos
