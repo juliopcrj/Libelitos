@@ -25,5 +25,8 @@ texture = ExtResource( 1 )
 [node name="ShotTimer" type="Timer" parent="."]
 
 [node name="MoveTimer" type="Timer" parent="."]
+
+[node name="ReloadTimer" type="Timer" parent="."]
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]

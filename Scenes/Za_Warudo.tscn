@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Libelitos.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Marimba_Minigun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Grenade.tscn" type="PackedScene" id=3]
 
 [node name="Main" type="Node2D"]
 __meta__ = {
@@ -15,6 +16,9 @@ position = Vector2( 84, 282 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Grenade" parent="Marimbas" instance=ExtResource( 3 )]
+position = Vector2( 156.309, 148.154 )
 
 [node name="Marimba_Minigun" parent="Marimbas" instance=ExtResource( 2 )]
 position = Vector2( 81.75, 33.625 )

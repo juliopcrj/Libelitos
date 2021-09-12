@@ -1,17 +1,21 @@
 extends KinematicBody2D
 
-var SCREEN_SIZE = Vector2(ProjectSettings.get("display/window/size/width"),
-						  ProjectSettings.get("display/window/size/height"))
-
+#var SCREEN_SIZE = Vector2(ProjectSettings.get("display/window/size/width"),
+#						  ProjectSettings.get("display/window/size/height"))
+const _t = preload("res://Scripts/tools.gd")
+var GameTools = _t.new()
 
 var Projectile = preload("res://Scenes/Projectile.tscn")
 onready var shotTimer = get_node("ShotTimer")
 onready var moveTimer = get_node("MoveTimer")
+onready var reloadTimer = get_node("ReloadTimer")
 
 const SHOTS_PER_SECOND = 5.0
 const BULLET_SPEED = 200
 const MOVE_WAIT_TIME = 3
 const MOVEMENT_SPEED = 200
+const RELOAD_TIME = 2
+
 
 var life:int
 var can_shoot:bool
@@ -43,6 +47,10 @@ func fire():
 		shotTimer.set_wait_time(1/SHOTS_PER_SECOND)
 		shotTimer.start()
 		can_shoot = false
+		if spent_shots == max_shots:
+			reloadTimer.set_wait_time(RELOAD_TIME)
+			reloadTimer.start()
+		
 
 # warning-ignore:unused_argument
 func _process(delta):
@@ -62,28 +70,19 @@ func take_damage():
 		queue_free()
 	pass
 
-func close_to(pos:Vector2, dest:Vector2)->bool:
-	if(abs(pos.x - dest.x) < 1.5
-	and abs(pos.y - dest.y) < 1.5):
-		return true
-	return false
-	
-func normalize(vec:Vector2)->Vector2:
-	var big = max(abs(vec.x), abs(vec.y))
-	return vec/big
 
 #defining minigun marimba's behavior
 func behave():
-	if close_to(position, destination):
+	if GameTools.close_to(position, destination):
 		movement = Vector2.ZERO
 	if can_move:
-		destination = Vector2(abs(float(randi() % int(SCREEN_SIZE.x) - $Sprite.texture.get_width())),
-							 abs(float(randi() % int(SCREEN_SIZE.y) - $Sprite.texture.get_height())))
+		destination = Vector2(abs(float(randi() % int(GameTools.SCREEN_SIZE.x) - $Sprite.texture.get_width())),
+							 abs(float(randi() % int(GameTools.SCREEN_SIZE.y) - $Sprite.texture.get_height())))
 		
-		movement =  normalize(destination - position) * MOVEMENT_SPEED
+		movement = GameTools.normalize(destination - position) * MOVEMENT_SPEED
 			
 		can_move = false
-		moveTimer.set_wait_time(3)
+		moveTimer.set_wait_time(MOVE_WAIT_TIME)
 		moveTimer.start()
 
 func _on_ShotTimer_timeout():
@@ -94,3 +93,7 @@ func _on_MoveTimer_timeout():
 	can_move = true
 	moveTimer.stop()
 	
+
+
+func _on_ReloadTimer_timeout():
+	spent_shots = 0
