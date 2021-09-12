@@ -1,13 +1,15 @@
 extends KinematicBody2D
 
 const velocity = Vector2()
+var SCREEN_SIZE = Vector2(ProjectSettings.get("display/window/size/width"),
+						  ProjectSettings.get("display/window/size/height"))
 
 func prepare(x, y):
 	velocity.x = x
 	velocity.y = y
 
 func _physics_process(delta):
-	if(position.y < 0) || get_slide_count() == 1:
+	if(position.y < 0) || position.y > SCREEN_SIZE.y || get_slide_count() == 1:
 		queue_free()
 	move_and_slide(velocity)
 	#for i in range(get_slide_count() -1 ):

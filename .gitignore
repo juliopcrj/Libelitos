@@ -1,1 +1,17 @@
 .import
+android/
+export_presets.cfg
+android/build/src/com/godot/game/GodotApp.java
+android/build/settings.gradle
+android/build/libs/release/godot-lib.release.aar
+android/build/libs/debug/godot-lib.debug.aar
+android/build/gradlew.bat
+android/build/gradlew
+android/build/gradle/wrapper/gradle-wrapper.properties
+android/build/gradle/wrapper/gradle-wrapper.jar
+android/build/gradle.properties
+android/build/config.gradle
+android/build/build.gradle
+android/build/AndroidManifest.xml
+android/build/.gdignore
+android/.build_version
