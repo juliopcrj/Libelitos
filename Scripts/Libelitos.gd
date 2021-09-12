@@ -60,6 +60,7 @@ func fire():
 		bulletTimer.start()
 
 func take_damage():
+	print("tomou dano")
 	if not invincible:
 		life -=1
 		iFrameTimer.set_wait_time(invincibility_time)

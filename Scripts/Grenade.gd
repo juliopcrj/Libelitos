@@ -17,26 +17,30 @@ const MIN_SCATTER = 10
 const MAX_SCATTER = 20
 const SCATTER_SPEED = 100
 
-const MAX_SPEED = 200.0
+
+const MAX_SPEED = 150
 
 var explosion_timer:float
 var movement:Vector2
+var destination:Vector2
 var scatter_amount:int
 var speed:float
 
-func _ready():
+func prepare():
 	randomize()
 	explosion_timer = MIN_TIME + randf()*(MAX_TIME-MIN_TIME)
-	speed = randf()*MAX_SPEED
+	speed = MAX_SPEED #may be changed to random
 	scatter_amount = randi()%(MAX_SCATTER-MIN_SCATTER) + MIN_SCATTER
-	movement = Vector2.ZERO
-	#movement = GameTools.normalize(Vector2(randf()*GameTools.SCREEN_SIZE.x, randf()*GameTools.SCREEN_SIZE.y)) * speed
+	destination = GameTools.enframe(Vector2(randf()*GameTools.SCREEN_SIZE.x, randf()*GameTools.SCREEN_SIZE.y))
+	movement = GameTools.normalize(destination - global_position) * speed
 	finalCountdown.set_wait_time(explosion_timer)
 	finalCountdown.start()
 
 func _process(delta):
+	if GameTools.close_to(position, destination):
+		movement = Vector2.ZERO
 	move_and_slide(movement)
-	pass
+	
 
 func explode():
 	var step = (PI * 2)/scatter_amount

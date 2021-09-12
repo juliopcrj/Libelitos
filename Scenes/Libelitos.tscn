@@ -4,7 +4,7 @@
 [ext_resource path="res://Sprites/player.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.39951, 9.00423 )
+extents = Vector2( 4.9028, 9.24055 )
 
 [node name="Libelitos" type="KinematicBody2D"]
 scale = Vector2( 0.75, 0.75 )
