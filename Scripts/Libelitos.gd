@@ -5,7 +5,7 @@ var Shot_Sound = preload("res://Sounds/shot.wav")
 
 
 const invincibility_time = 2
-const movement_reduction = 25 #percentage
+const movement_reduction = 50 #percentage
 
 
 var bullets_per_second = 5.0
@@ -60,7 +60,6 @@ func fire():
 		bulletTimer.start()
 
 func take_damage():
-	print("tomou dano")
 	if not invincible:
 		life -=1
 		iFrameTimer.set_wait_time(invincibility_time)
