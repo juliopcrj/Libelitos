@@ -4,9 +4,17 @@
 [ext_resource path="res://Scenes/Marimba_Minigun.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Libelitos" parent="." instance=ExtResource( 1 )]
 position = Vector2( 84, 282 )
 
-[node name="Marimba" parent="." instance=ExtResource( 2 )]
-position = Vector2( 39.75, 34.625 )
+[node name="Marimbas" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Marimba_Minigun" parent="Marimbas" instance=ExtResource( 2 )]
+position = Vector2( 81.75, 33.625 )

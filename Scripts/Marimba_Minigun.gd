@@ -11,6 +11,7 @@ onready var moveTimer = get_node("MoveTimer")
 const SHOTS_PER_SECOND = 5.0
 const BULLET_SPEED = 200
 const MOVE_WAIT_TIME = 3
+const MOVEMENT_SPEED = 200
 
 var life:int
 var can_shoot:bool
@@ -27,7 +28,7 @@ func _ready():
 	can_move = true
 	randomize()
 	max_shots = randi() % 10 + 5
-	life = 2
+	life = 3
 	spent_shots = 0
 
 func fire():
@@ -61,16 +62,25 @@ func take_damage():
 		queue_free()
 	pass
 
+func close_to(pos:Vector2, dest:Vector2)->bool:
+	if(abs(pos.x - dest.x) < 1.5
+	and abs(pos.y - dest.y) < 1.5):
+		return true
+	return false
+	
+func normalize(vec:Vector2)->Vector2:
+	var big = max(abs(vec.x), abs(vec.y))
+	return vec/big
+
 #defining minigun marimba's behavior
 func behave():
-	print(position, destination)
-	if position == destination:
+	if close_to(position, destination):
 		movement = Vector2.ZERO
 	if can_move:
 		destination = Vector2(abs(float(randi() % int(SCREEN_SIZE.x) - $Sprite.texture.get_width())),
 							 abs(float(randi() % int(SCREEN_SIZE.y) - $Sprite.texture.get_height())))
 		
-		movement =  destination - position
+		movement =  normalize(destination - position) * MOVEMENT_SPEED
 			
 		can_move = false
 		moveTimer.set_wait_time(3)
