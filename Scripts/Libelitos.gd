@@ -27,7 +27,7 @@ func _ready():
 	speed.y = 200
 	
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	process_inputs()
 
 func process_inputs():

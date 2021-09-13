@@ -36,9 +36,10 @@ func prepare():
 	finalCountdown.set_wait_time(explosion_timer)
 	finalCountdown.start()
 
-func _process(delta):
+func _process(_delta):
 	if GameTools.close_to(position, destination):
 		movement = Vector2.ZERO
+	# warning-ignore:return_value_discarded
 	move_and_slide(movement)
 	
 

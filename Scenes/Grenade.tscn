@@ -10,6 +10,10 @@ radius = 3.375
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="FinalCountdown" type="Timer" parent="."]
 
@@ -20,4 +24,5 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 8, 0, 6, 6 )
+
 [connection signal="timeout" from="FinalCountdown" to="." method="_on_FinalCountdown_timeout"]

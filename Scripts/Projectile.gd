@@ -9,7 +9,7 @@ func aim(x, y):
 	velocity.x = x
 	velocity.y = y
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if(self.position.y < 0 || self.position.y > SCREEN_SIZE.y || self.get_slide_count() > 0):
 		queue_free()
 	self.move_and_slide(velocity)

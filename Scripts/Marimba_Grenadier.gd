@@ -33,8 +33,8 @@ func fire():
 	root.add_child(node)
 	can_shoot = false
 
-
-func _process(delta):
+func _process(_delta):
+	# warning-ignore:return_value_discarded
 	move_and_slide(Vector2.ZERO)
 	if can_shoot:
 		fire()
@@ -46,8 +46,6 @@ func take_damage():
 	life -= 1
 	if life == 0:
 		queue_free()
-	pass
-
 
 func _on_ShotTimer_timeout():
 	can_shoot = true

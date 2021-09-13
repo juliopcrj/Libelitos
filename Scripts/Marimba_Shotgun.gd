@@ -6,19 +6,16 @@ var SCREEN_SIZE = Vector2(ProjectSettings.get("display/window/size/width"),
 var Projectile = preload("res://Scenes/Projectile.tscn")
 onready var shotTimer = get_node("ShotTimer")
 
-
 const SHOTS_PER_SECOND = 1.5
 const BULLET_SPEED = 200
 
 var life:int
 var can_shoot:bool
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	can_shoot = true
 	life = 2
-	pass # Replace with function body.
 
 func fire():
 	if can_shoot:
@@ -32,7 +29,7 @@ func fire():
 		shotTimer.start()
 		can_shoot = false
 
-func _process(delta):
+func _process(_delta):
 	move_and_slide(Vector2.ZERO)
 	fire()
 	if(get_slide_count()):
@@ -43,8 +40,6 @@ func take_damage():
 	life -= 1
 	if life == 0:
 		queue_free()
-	pass
-
 
 func _on_ShotTimer_timeout():
 	can_shoot = true
