@@ -1,10 +1,128 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Libelitos.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/player.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/dragonfly_sprite.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/dragonfly_wings.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4.9028, 9.24055 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 112, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 224, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 336, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 448, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 560, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 112, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 224, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 336, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 448, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 560, 0, 112, 80 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 14 ), null, SubResource( 15 ), null, SubResource( 16 ), null ],
+"loop": true,
+"name": "strafe_iframe",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 17 ), null, SubResource( 18 ), null, SubResource( 19 ), null ],
+"loop": true,
+"name": "idle_iframe",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "strafe",
+"speed": 10.0
+} ]
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 112, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 224, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 4 )
+region = Rect2( 336, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 4 )
+region = Rect2( 112, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 224, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 336, 0, 112, 80 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 20 ), null, SubResource( 21 ), null, SubResource( 22 ), null, SubResource( 23 ), null ],
+"loop": true,
+"name": "default_iframe",
+"speed": 20.0
+} ]
 
 [node name="Libelitos" type="KinematicBody2D"]
 scale = Vector2( 0.75, 0.75 )
@@ -13,10 +131,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 1.49831, 8.98984 )
-texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 7.62939e-06, -2.51984 )
@@ -27,5 +141,23 @@ shape = SubResource( 1 )
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="iFrameTimer" type="Timer" parent="."]
+
+[node name="body" type="AnimatedSprite" parent="."]
+frames = SubResource( 8 )
+animation = "idle"
+
+[node name="wings" type="AnimatedSprite" parent="."]
+frames = SubResource( 13 )
+
+[node name="_not_to_use_Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1.49831, 8.98984 )
+texture = ExtResource( 2 )
+
+[node name="respawnTimer" type="Timer" parent="."]
+
+[node name="dashTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="bulletTimer" to="." method="_on_bulletTimer_timeout"]
 [connection signal="timeout" from="iFrameTimer" to="." method="_on_iFrameTimer_timeout"]
+[connection signal="timeout" from="respawnTimer" to="." method="_on_respawnTimer_timeout"]

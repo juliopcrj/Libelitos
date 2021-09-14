@@ -4,6 +4,7 @@ const BORDER = 15
 var SCREEN_SIZE = Vector2(ProjectSettings.get("display/window/size/width"),
 						  ProjectSettings.get("display/window/size/height"))
 
+const LONGE_PRA_CARALHO = Vector2(-1000, -1000)
 
 func calculate_movement(pos:Vector2, dest:Vector2)->Vector2:
 	return dest-pos
@@ -30,3 +31,6 @@ func enframe(vec:Vector2)->Vector2:
 	vec.y = _aux_enframe(vec.y, BORDER, SCREEN_SIZE.y - BORDER)
 	return vec
 	
+
+func distance(v1:Vector2, v2:Vector2)->float:
+	return sqrt((v1.x-v2.x)*(v1.x-v2.x) + (v1.y-v2.y)*(v1.y-v2.y))

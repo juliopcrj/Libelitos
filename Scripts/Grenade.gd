@@ -58,3 +58,4 @@ func _on_FinalCountdown_timeout():
 	explode()
 	finalCountdown.stop()
 	queue_free()
+
