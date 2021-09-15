@@ -9,6 +9,8 @@ var Projectile = preload("res://Scenes/Projectile.tscn")
 onready var shotTimer = get_node("ShotTimer")
 onready var moveTimer = get_node("MoveTimer")
 onready var reloadTimer = get_node("ReloadTimer")
+onready var deathTimer = get_node("DeathTimer")
+onready var blinkTimer = get_node("BlinkTimer")
 
 const SHOTS_PER_SECOND = 3.0
 const BULLET_SPEED = 120
@@ -16,7 +18,10 @@ const MOVE_WAIT_TIME = 3
 const MOVEMENT_SPEED = 200
 const RELOAD_TIME = 2
 const BRAKE_DISTANCE = 0.60
+const DEATH_TIME = 1
+const BLINK_TIME = 0.08
 
+signal on_shot_processed
 
 var life:int
 var can_shoot:bool
@@ -29,6 +34,8 @@ var state
 var startPoint:Vector2
 var startSpeed:Vector2
 var brakePoint:Vector2
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	can_shoot = true
@@ -69,21 +76,34 @@ func fire():
 # warning-ignore:unused_argument
 func _process(delta):
 # warning-ignore:return_value_discarded
-	behave()
-	move_and_slide(movement)
-		
-	if(get_slide_count()):
-		if(get_slide_collision(0).collider.name != "Libelitos"):
-			take_damage()
+	if life > 0:
+		behave()
+		move_and_slide(movement)
+			
+#		if(get_slide_count()):
+#			var bullet = get_slide_collision(0)
+#			if(bullet.collider.name != "Libelitos"):
+#				take_damage()
 
-	if $body.animation != state:
-		$body.play(state)
+		if $body.animation != state:
+			$body.play(state)
 	
 func take_damage():
 	life -= 1
 	if life == 0:
-		queue_free()
-	pass
+		die()
+	else:
+		$body.set_modulate(Color(1,0,0,1))
+		blinkTimer.set_wait_time(BLINK_TIME)
+		blinkTimer.start()
+
+func die():
+	$wings.play("death")
+	$body.play("death")
+	$CollisionShape2D.disabled= true
+	deathTimer.set_wait_time(DEATH_TIME)
+	deathTimer.start()
+
 
 #defining minigun marimba's behavior
 func behave():
@@ -97,8 +117,8 @@ func behave():
 	if can_move:
 		startPoint = position
 		
-		destination = Vector2(abs(float(randi() % int(GameTools.SCREEN_SIZE.x) - $Sprite.texture.get_width())),
-							 abs(float(randi() % int(GameTools.SCREEN_SIZE.y) - $Sprite.texture.get_height())))
+		destination = Vector2(abs(float(randi() % int(GameTools.SCREEN_SIZE.x) - 20)),
+							 abs(float(randi() % int(GameTools.SCREEN_SIZE.y) - 20)))
 		
 		movement = GameTools.normalize(destination - position) * MOVEMENT_SPEED
 		startSpeed = movement
@@ -122,3 +142,15 @@ func _on_MoveTimer_timeout():
 func _on_ReloadTimer_timeout():
 	spent_shots = 0
 	reloadTimer.stop()
+
+func _on_DeathTimer_timeout():
+	queue_free()
+
+func _on_Getting_Shot(from:KinematicBody2D):
+	take_damage()
+	connect("on_shot_processed", from, "_on_Shot_Processed")
+	emit_signal("on_shot_processed")
+
+func _on_BlinkTimer_timeout():
+	$body.set_modulate(Color(1,1,1,1))
+	blinkTimer.stop()

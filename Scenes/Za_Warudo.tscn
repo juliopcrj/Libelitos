@@ -14,7 +14,7 @@ position = Vector2( 90, 160 )
 texture = ExtResource( 3 )
 
 [node name="Libelitos" parent="." instance=ExtResource( 1 )]
-position = Vector2( 84, 282 )
+position = Vector2( 85, 290 )
 
 [node name="Marimba_Minigun" parent="." instance=ExtResource( 2 )]
 position = Vector2( 129.585, 46.3765 )

@@ -136,7 +136,7 @@ func _on_iFrameTimer_timeout():
 	iFrameTimer.stop()
 
 func _on_respawnTimer_timeout():
-	global_position = Vector2(int(GameTools.SCREEN_SIZE.x/2), int(GameTools.SCREEN_SIZE.y/2))
+	global_position = Vector2(int(GameTools.SCREEN_SIZE.x/2), int(GameTools.SCREEN_SIZE.y*0.9))
 	disabled = false
 	iFrameTimer.set_wait_time(invincibility_time)
 	iFrameTimer.start()
