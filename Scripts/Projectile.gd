@@ -34,3 +34,6 @@ func set_enemy_fire():
 
 func _on_Shot_Processed():
 	queue_free()
+
+func set_color(c:Color):
+	$Sprite.set_modulate(c)

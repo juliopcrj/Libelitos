@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Libelitos.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Marimba_Minigun.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/background.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Marimba_Shotgun.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 __meta__ = {
@@ -17,7 +18,8 @@ texture = ExtResource( 3 )
 position = Vector2( 85, 290 )
 
 [node name="Marimba_Minigun" parent="." instance=ExtResource( 2 )]
-position = Vector2( 129.585, 46.3765 )
+position = Vector2( 44.8391, 32.907 )
 
-[node name="Marimba_Minigun2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 51.6312, 45.0401 )
+[node name="Marimba_Shotgun" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0, 1, 0, 1 )
+position = Vector2( 132.587, 61.3068 )
