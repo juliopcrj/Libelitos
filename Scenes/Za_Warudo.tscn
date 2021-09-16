@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Libelitos.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Marimba_Minigun.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/background.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Marimba_Shotgun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Za_Warudo.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Marimba_Grenadier.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 5 )
@@ -25,5 +27,11 @@ position = Vector2( 85, 290 )
 
 [node name="Marimba_Shotgun" parent="." instance=ExtResource( 4 )]
 position = Vector2( 88.3228, 72.1133 )
+
+[node name="Marimba_Grenadier" parent="." instance=ExtResource( 6 )]
+position = Vector2( 89.4453, 26.6537 )
+
+[node name="Marimba_Minigun" parent="." instance=ExtResource( 2 )]
+position = Vector2( 26.6538, 71.8405 )
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

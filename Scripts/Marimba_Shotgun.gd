@@ -7,16 +7,15 @@ var Projectile = preload("res://Scenes/Projectile.tscn")
 onready var shotTimer = get_node("ShotTimer")
 onready var moveTimer = get_node("MoveTimer")
 onready var reloadTimer = get_node("ReloadTimer")
-onready var deathTimer = get_node("DeathTimer")
 onready var blinkTimer = get_node("BlinkTimer")
+onready var secondShotTimer = get_node("SecondShotTimer")
 
 const SHOTS_PER_SECOND = 0.5
 const BULLET_SPEED = 80
 const MOVE_WAIT_TIME = 3
 const MOVEMENT_SPEED = 50
-const RELOAD_TIME = 2
+const RELOAD_TIME = 4
 const BRAKE_DISTANCE = 0.60
-const DEATH_TIME = 1.02
 const BLINK_TIME = 0.08
 const SPREAD_AMOUNT = 6
 
@@ -44,7 +43,7 @@ func _ready():
 	can_shoot = true
 	can_move = true
 	randomize()
-	max_shots = randi() % 10 + 5
+	max_shots = 2
 	life = 6
 	spent_shots = 0
 	state = "idle"
@@ -60,22 +59,17 @@ func fire():
 		for i in range(SPREAD_AMOUNT, SPREAD_AMOUNT*2 + 1):
 			var _p = Projectile.instance()
 			_p.aim(cos(step*i)*BULLET_SPEED, sin(step*i)*BULLET_SPEED)
-			if side:
-				_p.position = self.global_position + Vector2(10,5) # "gun" position
-			else:
-				_p.position = self.global_position + Vector2(-10,5) # "gun" position
+			_p.position = self.global_position + Vector2(-10,15) # "gun" position
 			_p.set_enemy_fire("shotgun")
 			root.add_child(_p)
-		
-		side = !side
-		
 		state = "shooting"
 		spent_shots += 2
+		secondShotTimer.set_wait_time(0.66667)
+		secondShotTimer.start()
 		shotTimer.set_wait_time(1/SHOTS_PER_SECOND)
 		shotTimer.start()
 		can_shoot = false
 		if spent_shots >= max_shots:
-			state = "idle"
 			reloadTimer.set_wait_time(RELOAD_TIME)
 			reloadTimer.start()
 		
@@ -103,8 +97,6 @@ func die():
 	$wings.play("death")
 	$body.play("death")
 	$CollisionShape2D.disabled= true
-	deathTimer.set_wait_time(DEATH_TIME)
-	deathTimer.start()
 
 
 #defining minigun marimba's behavior
@@ -145,9 +137,6 @@ func _on_ReloadTimer_timeout():
 	spent_shots = 0
 	reloadTimer.stop()
 
-func _on_DeathTimer_timeout():
-	queue_free()
-
 func _on_Getting_Shot(from:KinematicBody2D):
 	take_damage()
 	connect("on_shot_processed", from, "_on_Shot_Processed")
@@ -157,4 +146,20 @@ func _on_BlinkTimer_timeout():
 	$body.set_modulate(Color(1,1,1,1))
 	blinkTimer.stop()
 
+func _on_SecondShotTimer_timeout():
+	var step = (PI * 2) /(SPREAD_AMOUNT * 6)
+	var root = get_tree().current_scene
+	for i in range(SPREAD_AMOUNT, SPREAD_AMOUNT*2 + 1):
+		var _p = Projectile.instance()
+		_p.aim(cos(step*i)*BULLET_SPEED, sin(step*i)*BULLET_SPEED)
+		_p.position = self.global_position + Vector2(10,15) # "gun" position
+		_p.set_enemy_fire("shotgun")
+		root.add_child(_p)	
+	secondShotTimer.stop()
+
+func _on_body_animation_finished():
+	if $body.animation == "death":
+		queue_free()
+	if $body.animation == "shooting":
+		state = "idle"
 
