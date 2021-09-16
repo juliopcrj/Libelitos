@@ -18,7 +18,7 @@ const MOVE_WAIT_TIME = 3
 const MOVEMENT_SPEED = 200
 const RELOAD_TIME = 2
 const BRAKE_DISTANCE = 0.60
-const DEATH_TIME = 1
+const DEATH_TIME = 1.02
 const BLINK_TIME = 0.08
 
 signal on_shot_processed
@@ -42,7 +42,7 @@ func _ready():
 	can_move = true
 	randomize()
 	max_shots = randi() % 10 + 5
-	life = 3
+	life = 2
 	spent_shots = 0
 	state = "idle"
 	$body.playing = true

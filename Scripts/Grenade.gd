@@ -10,7 +10,7 @@ onready var finalCountdown = get_node("FinalCountdown")
 
 # explosion time
 const MIN_TIME = 1.5
-const MAX_TIME = 3.0
+const MAX_TIME = 8.0
 
 # scatter shots
 const MIN_SCATTER = 10
@@ -28,15 +28,18 @@ var speed:float
 
 func prepare():
 	randomize()
-	explosion_timer = MIN_TIME + randf()*(MAX_TIME-MIN_TIME)
+	explosion_timer = 10# MIN_TIME + randf()*(MAX_TIME-MIN_TIME)
 	speed = MAX_SPEED #may be changed to random
 	scatter_amount = randi()%(MAX_SCATTER-MIN_SCATTER) + MIN_SCATTER
 	destination = GameTools.enframe(Vector2(randf()*GameTools.SCREEN_SIZE.x, randf()*GameTools.SCREEN_SIZE.y))
 	movement = GameTools.normalize(destination - global_position) * speed
+	$Sprite.playing = true
 	finalCountdown.set_wait_time(explosion_timer)
 	finalCountdown.start()
 
 func _process(_delta):
+	if finalCountdown.time_left < explosion_timer/4:
+		$Sprite.speed_scale = 4
 	if GameTools.close_to(position, destination):
 		movement = Vector2.ZERO
 	# warning-ignore:return_value_discarded

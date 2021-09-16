@@ -16,7 +16,7 @@ const MOVE_WAIT_TIME = 3
 const MOVEMENT_SPEED = 50
 const RELOAD_TIME = 2
 const BRAKE_DISTANCE = 0.60
-const DEATH_TIME = 1
+const DEATH_TIME = 1.02
 const BLINK_TIME = 0.08
 const SPREAD_AMOUNT = 6
 
@@ -45,7 +45,7 @@ func _ready():
 	can_move = true
 	randomize()
 	max_shots = randi() % 10 + 5
-	life = 3
+	life = 6
 	spent_shots = 0
 	state = "idle"
 	$body.playing = true
@@ -81,11 +81,6 @@ func _process(delta):
 	if life > 0:
 		behave()
 		move_and_slide(movement)
-			
-#		if(get_slide_count()):
-#			var bullet = get_slide_collision(0)
-#			if(bullet.collider.name != "Libelitos"):
-#				take_damage()
 
 		if $body.animation != state:
 			$body.play(state)
@@ -111,6 +106,8 @@ func die():
 func behave():
 	if GameTools.close_to(position, destination):
 		movement = Vector2.ZERO
+		if spent_shots < max_shots:
+			fire()
 #	elif GameTools.distance(position,destination) < GameTools.distance(startPoint, destination) * (1-BRAKE_DISTANCE):
 #		movement = startSpeed - (startSpeed/2 * (
 #			GameTools.distance(brakePoint, position)/
@@ -119,10 +116,8 @@ func behave():
 	if can_move:
 		startPoint = position
 		
-		if GameTools.close_to(position, position_left):
-			destination = position_right
-		else:
-			destination = position_left
+		destination.y  = position_right.y
+		destination.x = position_left.x + (position_right.x - position_left.x)*randf()
 		
 		movement = GameTools.normalize(destination - position) * MOVEMENT_SPEED
 		startSpeed = movement
@@ -132,8 +127,6 @@ func behave():
 		moveTimer.set_wait_time(MOVE_WAIT_TIME)
 		moveTimer.start()
 
-	if spent_shots < max_shots:
-		fire()
 
 func _on_ShotTimer_timeout():
 	can_shoot = true
