@@ -55,13 +55,13 @@ func fire():
 		var _p = Projectile.instance()
 		_p.aim(0, BULLET_SPEED)
 		_p.global_position = self.global_position + Vector2(-10, 5)
-		_p.set_enemy_fire()
+		_p.set_enemy_fire("minigun")
 		var main = get_tree().current_scene
 		main.add_child(_p)
 		_p = Projectile.instance()
 		_p.aim(0, BULLET_SPEED)
 		_p.global_position = self.global_position + Vector2(10, 5)
-		_p.set_enemy_fire()
+		_p.set_enemy_fire("minigun")
 		main.add_child(_p)
 		spent_shots += 2
 		shotTimer.set_wait_time(1/SHOTS_PER_SECOND)

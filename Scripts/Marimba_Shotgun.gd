@@ -35,7 +35,7 @@ var startSpeed:Vector2
 var brakePoint:Vector2
 var position_left:Vector2
 var position_right:Vector2
-
+var side:bool #left = false, right = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,6 +51,7 @@ func _ready():
 	$body.playing = true
 	$wings.frame = randi()%4
 	$wings.playing = true
+	side = false
 
 func fire():
 	if can_shoot:
@@ -59,11 +60,15 @@ func fire():
 		for i in range(SPREAD_AMOUNT, SPREAD_AMOUNT*2 + 1):
 			var _p = Projectile.instance()
 			_p.aim(cos(step*i)*BULLET_SPEED, sin(step*i)*BULLET_SPEED)
-			_p.position = self.global_position + Vector2(0,9) # "gun" position
-			_p.scale *= 1.2
-			_p.set_color(Color(0,1,0,1))
-			_p.set_enemy_fire()
+			if side:
+				_p.position = self.global_position + Vector2(10,5) # "gun" position
+			else:
+				_p.position = self.global_position + Vector2(-10,5) # "gun" position
+			_p.set_enemy_fire("shotgun")
 			root.add_child(_p)
+		
+		side = !side
+		
 		state = "shooting"
 		spent_shots += 2
 		shotTimer.set_wait_time(1/SHOTS_PER_SECOND)

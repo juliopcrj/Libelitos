@@ -90,7 +90,7 @@ func fire():
 		_p.aim(0, bullet_speed)
 		_p.set_player_fire()
 		var main = get_tree().current_scene
-		_p.global_position = self.global_position
+		_p.global_position = self.global_position - Vector2(0,10)
 		main.add_child(_p)
 		can_shoot = false
 		bulletTimer.set_wait_time(1/bullets_per_second)

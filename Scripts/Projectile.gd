@@ -7,7 +7,6 @@ var SCREEN_SIZE = Vector2(ProjectSettings.get("display/window/size/width"),
 signal shot_hit
 
 func aim(x, y):
-	$CollisionShape2D.disabled = false
 	velocity.x = x
 	velocity.y = y
 
@@ -23,12 +22,19 @@ func _physics_process(_delta):
 		queue_free()
 
 func set_player_fire():
-	$Sprite.region_rect = Rect2(0,0,6,6)
+	$Sprite.play("libelito")
+	$libelito.disabled = false
 	self.set_collision_layer_bit(2,true)
 	self.set_collision_mask_bit(1, true)
 
-func set_enemy_fire():
-	$Sprite.region_rect = Rect2(8,0,6,6)
+func set_enemy_fire(enemy:String):
+	$Sprite.play(enemy)
+	if enemy == "grenadier":
+		$grenadier.disabled = false
+	elif enemy == "minigun":
+		$minigun.disabled = false
+	else:
+		$shotgun.disabled = false
 	self.set_collision_layer_bit(3,true)
 	self.set_collision_mask_bit(0, true)
 

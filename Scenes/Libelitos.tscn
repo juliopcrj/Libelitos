@@ -20,30 +20,6 @@ region = Rect2( 112, 0, 112, 80 )
 atlas = ExtResource( 3 )
 region = Rect2( 224, 0, 112, 80 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 3 )
-region = Rect2( 336, 0, 112, 80 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 3 )
-region = Rect2( 448, 0, 112, 80 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 3 )
-region = Rect2( 560, 0, 112, 80 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 112, 80 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 3 )
-region = Rect2( 112, 0, 112, 80 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 3 )
-region = Rect2( 224, 0, 112, 80 )
-
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 3 )
 region = Rect2( 336, 0, 112, 80 )
@@ -56,69 +32,93 @@ region = Rect2( 448, 0, 112, 80 )
 atlas = ExtResource( 3 )
 region = Rect2( 560, 0, 112, 80 )
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 112, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 224, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 336, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 448, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 560, 0, 112, 80 )
+
+[sub_resource type="SpriteFrames" id=14]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "idle",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 14 ), null, SubResource( 15 ), null, SubResource( 16 ), null ],
+"frames": [ SubResource( 5 ), null, SubResource( 6 ), null, SubResource( 7 ), null ],
 "loop": true,
 "name": "strafe_iframe",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 17 ), null, SubResource( 18 ), null, SubResource( 19 ), null ],
+"frames": [ SubResource( 8 ), null, SubResource( 9 ), null, SubResource( 10 ), null ],
 "loop": true,
 "name": "idle_iframe",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "strafe",
 "speed": 10.0
 } ]
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 112, 80 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 4 )
 region = Rect2( 112, 0, 112, 80 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 4 )
 region = Rect2( 224, 0, 112, 80 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 4 )
 region = Rect2( 336, 0, 112, 80 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 112, 80 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 112, 80 )
+region = Rect2( 112, 0, 112, 80 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 4 )
-region = Rect2( 112, 0, 112, 80 )
+region = Rect2( 224, 0, 112, 80 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 4 )
-region = Rect2( 224, 0, 112, 80 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 4 )
 region = Rect2( 336, 0, 112, 80 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
 "name": "default",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 20 ), null, SubResource( 21 ), null, SubResource( 22 ), null, SubResource( 23 ), null ],
+"frames": [ SubResource( 19 ), null, SubResource( 20 ), null, SubResource( 21 ), null, SubResource( 22 ), null ],
 "loop": true,
 "name": "default_iframe",
 "speed": 20.0
@@ -143,11 +143,11 @@ shape = SubResource( 1 )
 [node name="iFrameTimer" type="Timer" parent="."]
 
 [node name="body" type="AnimatedSprite" parent="."]
-frames = SubResource( 8 )
+frames = SubResource( 14 )
 animation = "idle"
 
 [node name="wings" type="AnimatedSprite" parent="."]
-frames = SubResource( 13 )
+frames = SubResource( 23 )
 
 [node name="_not_to_use_Sprite" type="Sprite" parent="."]
 visible = false

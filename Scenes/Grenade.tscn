@@ -1,32 +1,62 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Grenade.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/granade.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/granade_sprite.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.375
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 23, 24 )
+region = Rect2( 0, 0, 29, 29 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 23, 0, 23, 24 )
+region = Rect2( 29, 0, 29, 29 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
-region = Rect2( 46, 0, 23, 24 )
+region = Rect2( 58, 0, 29, 29 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 87, 0, 29, 29 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 116, 0, 29, 29 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 145, 0, 29, 29 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 174, 0, 29, 29 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 203, 0, 29, 29 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 232, 0, 29, 29 )
 
 [sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
+"speed": 16.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": false,
+"name": "megumin",
+"speed": 20.0
 } ]
 
 [node name="Grenade" type="KinematicBody2D"]
+scale = Vector2( 0.8, 0.8 )
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
@@ -46,3 +76,4 @@ animation = "idle"
 speed_scale = 0.5
 
 [connection signal="timeout" from="FinalCountdown" to="." method="_on_FinalCountdown_timeout"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
