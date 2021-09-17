@@ -18,14 +18,16 @@ func _physics_process(_delta):
 		connect("shot_hit", target, "_on_Getting_Shot")
 		emit_signal("shot_hit", self)
 	
-	if (self.position.y < 0 || self.position.y > SCREEN_SIZE.y):
+	if (self.position.y < 0 || self.position.y > SCREEN_SIZE.y ||
+	 self.position.x < 0 || self.position.x > SCREEN_SIZE.x) :
 		queue_free()
 
-func set_player_fire():
-	$Sprite.play("libelito")
-	$libelito.disabled = false
-	self.set_collision_layer_bit(2,true)
-	self.set_collision_mask_bit(1, true)
+func set_player_fire(type:String):
+	$Sprite.play(type)
+	if type == "libelito":
+		$libelito.disabled = false
+		self.set_collision_layer_bit(2,true)
+		self.set_collision_mask_bit(1, true)
 
 func set_enemy_fire(enemy:String):
 	$Sprite.play(enemy)

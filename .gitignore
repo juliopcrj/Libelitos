@@ -2,5 +2,4 @@
 android/
 export_presets.cfg
 Session.vim
-*.import
 build/

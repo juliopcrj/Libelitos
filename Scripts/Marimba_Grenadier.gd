@@ -18,25 +18,51 @@ const DEATH_TIME = 1.02
 const BLINK_TIME = 0.08
 const FLEE_TIME = 4 #seconds duh
 const THROW_TIME = 0.72
+const MOVEMENT_SPEED = 100
+const PREPARE_RATE = 0.5
 
 var life:int
 var can_shoot:bool
 var movement:Vector2
 var state
 var has_grenade:bool
+var start_point:Vector2
+var end_point:Vector2
+var mid_point:Vector2
+var bezier_delta:float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	has_grenade = true
 	can_shoot = false
-	state = "idle"
 	$wings.playing = true
 	$body.playing = true
 	connect("grenade_launched", $Grenade, "prepare")
-	shotTimer.set_wait_time(GRENADE_WAIT_LAUNCH)
-	shotTimer.start()
-	
 	life = 4
+	bezier_delta = 0
+
+func set_start_position(n:int): #0,1,2,3 = LU, RU, LD, RD
+	state = "preparing"
+	if n == 0:
+		position = Vector2(-20,-20)
+		end_point = Vector2(160,280)
+	elif n == 1:
+		position = Vector2(200, -20)
+		end_point = Vector2(20,280)
+	elif n == 2:
+		position = Vector2(-20, 340)
+		end_point = Vector2(160,30)
+	elif n == 3:
+		position = Vector2(200, 340)
+		end_point = Vector2(20,30)
+
+	start_point = position
+
+	if position.y < 0:
+		mid_point = Vector2(end_point.x, start_point.y)
+	else:
+		mid_point = Vector2(start_point.x, end_point.y)
+
 
 func fire():
 	emit_signal("grenade_launched")
@@ -48,23 +74,35 @@ func fire():
 	root.add_child(node)
 	has_grenade = false
 
+
 func _process(_delta):
 	# warning-ignore:return_value_discarded
 	if life > 0:
-		behave()
+		behave(_delta)
 		move_and_slide(movement)
-		if $body.animation != state:
-			$body.play(state)
+		if state != "preparing":
+			if $body.animation != state:
+				$body.play(state)
 
 
-func behave():
+func behave(_delta):
+	if state == "preparing":
+		if GameTools.close_to(position, end_point):
+			state = "idle"
+			shotTimer.set_wait_time(GRENADE_WAIT_LAUNCH)
+			shotTimer.start()
+
+		position = GameTools._quadratic_bezier(start_point, mid_point, end_point, bezier_delta)
+		bezier_delta += (_delta * PREPARE_RATE)
+
+		return
 	if can_shoot:
 		state = "throw"
 		can_shoot = false
 		throwTimer.set_wait_time(THROW_TIME)
 		throwTimer.start()
 	if state == "fleeing":
-		movement = Vector2(0, -100)
+		movement = Vector2(0, -1) * MOVEMENT_SPEED
 		if GameTools.close_to(Vector2(position.x, -200), position):
 			queue_free()
 

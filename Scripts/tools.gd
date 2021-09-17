@@ -34,3 +34,8 @@ func enframe(vec:Vector2)->Vector2:
 
 func distance(v1:Vector2, v2:Vector2)->float:
 	return sqrt((v1.x-v2.x)*(v1.x-v2.x) + (v1.y-v2.y)*(v1.y-v2.y))
+
+func _quadratic_bezier(p0:Vector2, p1:Vector2, p2:Vector2, t:float):
+	var q0 = p0.linear_interpolate(p1,t)
+	var q1 = p1.linear_interpolate(p2,t)
+	return q0.linear_interpolate(q1,t)
