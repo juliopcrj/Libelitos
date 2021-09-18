@@ -14,7 +14,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Libelitos"
+config/name="Libelitos Ultra Adventure"
 run/main_scene="res://Scenes/StartMenu.tscn"
 config/icon="res://icon.png"
 

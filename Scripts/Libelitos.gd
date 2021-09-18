@@ -10,7 +10,7 @@ signal player_dead
 signal took_damage
 
 const INVINCIBILITY_TIME = 3
-const MOVEMENT_REDUCTION = 50 #percentage
+const MOVEMENT_REDUCTION = 65 #percentage
 const RESPAWN_TIME = 2
 const AFTER_DEATH_SCATTER = 15
 const SCATTER_SPEED = 200
@@ -59,15 +59,18 @@ func _physics_process(_delta):
 			if movement.x < 0:
 				$body.flip_h = true
 				$wings.rotation_degrees = -8
+				$shadow.flip_h = true
 			else:
 				$body.flip_h = false
 				$wings.rotation_degrees = 8
+				$shadow.flip_h = false
 
 		if invincible:
 			state += "_iframe"
 
 		if state != $body.animation:
 			$body.play(state)
+			$shadow.play(state)
 
 		move_and_slide(movement)
 	
@@ -103,6 +106,7 @@ func take_damage():
 		life -=1
 		state = "death"
 		$body.play("death")
+		$shadow.visible = false
 		after_death()
 		$wings.visible = false
 		disabled = true
@@ -146,6 +150,7 @@ func _on_respawnTimer_timeout():
 	$body.set_modulate(Color(1,1,1,0.5))
 	$wings.visible = true
 	$wings.set_modulate(Color(1,1,1,0.5))
+	$shadow.visible = true
 
 	iFrameTimer.set_wait_time(INVINCIBILITY_TIME)
 	iFrameTimer.start()
