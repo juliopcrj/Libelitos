@@ -13,7 +13,7 @@ onready var stage_timer = get_node("StageTimer")
 var GRENADIER_SPAWN_TIME
 var MINIGUN_SPAWN_TIME
 var SHOTGUN_SPAWN_TIME
-const STAGE_TIME = 120
+const STAGE_TIME = 10
 
 
 var GRENADIER_SPAWN_AMOUNT
@@ -22,8 +22,12 @@ var SHOTGUN_SPAWN_AMOUNT
 
 var pos
 var last_pos
+var font
+
+var score:int
 
 func _ready():
+	score = 0
 	pos = 0
 	last_pos = 0
 	
@@ -45,9 +49,17 @@ func _ready():
 	shotgun_timer.start()
 	minigun_timer.start()
 	stage_timer.start()
+	
+#	font = DynamicFont.new()
+#	font.font_data = load("res://Fonts/megaman_2.ttf")
+#	font.size = 64
+#	$Time.set("custom_fonts/font", font)
 
 func _process(delta):
-	$Label.text = String(int(stage_timer.time_left))
+	$Labels/Time.text = String(int(stage_timer.time_left))
+	$Labels/Score.text = String(score).pad_zeros(3)
+	if ( not find_node("*Marimba*", true, false)) and $StageTimer.is_stopped():
+		get_tree().change_scene("res://Scenes/Victory.tscn")
 
 func spawn(which:int):
 	var _m = marimbas[which].instance()
@@ -55,8 +67,8 @@ func spawn(which:int):
 	_m.position = Vector2(20 + randi()%140, -100)
 	if which == 2:
 		pos = randi()%4
-		while pos == last_pos:
-			pos = randi()%4
+		if pos == last_pos:
+			pos = (pos + 1) % 4
 		_m.set_start_position(pos)
 		last_pos = pos
 	add_child(_m)
@@ -99,7 +111,7 @@ func _on_Minigun_timeout():
 	#	MINIGUN_SPAWN_TIME = 2
 	#	MINIGUN_SPAWN_AMOUNT = 4
 	#	minigun_timer.set_wait_time(MINIGUN_SPAWN_TIME)
-	for i in range(MINIGUN_SPAWN_AMOUNT):
+	for _i in range(MINIGUN_SPAWN_AMOUNT):
 		spawn(0)
 
 func _on_StageTimer_timeout():
@@ -110,3 +122,6 @@ func _on_StageTimer_timeout():
 
 func _on_player_shindeiru():
 	get_tree().change_scene("res://Scenes/GameOver.tscn")
+
+func increase_score(s):
+	score += s

@@ -20,8 +20,10 @@ const RELOAD_TIME = 2
 const BRAKE_DISTANCE = 0.60
 const DEATH_TIME = 1.02
 const BLINK_TIME = 0.08
+const SCORE = 2
 
 signal on_shot_processed
+signal killed
 
 var life:int
 var can_shoot:bool
@@ -48,6 +50,7 @@ func _ready():
 	$body.playing = true
 	$wings.frame = randi()%4
 	$wings.playing = true
+	connect("killed", get_parent(), "increase_score")
 
 func fire():
 	if can_shoot:
@@ -98,11 +101,12 @@ func take_damage():
 		blinkTimer.start()
 
 func die():
+	emit_signal("killed", SCORE)
 	$wings.play("death")
 	$body.play("death")
 	$CollisionShape2D.disabled= true
-	deathTimer.set_wait_time(DEATH_TIME)
-	deathTimer.start()
+	#deathTimer.set_wait_time(DEATH_TIME)
+	#deathTimer.start()
 
 
 #defining minigun marimba's behavior
@@ -154,3 +158,7 @@ func _on_Getting_Shot(from:KinematicBody2D):
 func _on_BlinkTimer_timeout():
 	$body.set_modulate(Color(1,1,1,1))
 	blinkTimer.stop()
+
+func _on_body_animation_finished():
+	if $body.animation == "death":
+		queue_free()

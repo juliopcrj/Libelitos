@@ -11,6 +11,7 @@ onready var throwTimer = get_node("ThrowTimer")
 
 signal grenade_launched
 signal on_shot_processed
+signal killed
 
 const GRENADE_WAIT_LAUNCH = 3.0
 const BULLET_SPEED = 200
@@ -20,6 +21,7 @@ const FLEE_TIME = 4 #seconds duh
 const THROW_TIME = 0.72
 const MOVEMENT_SPEED = 100
 const PREPARE_RATE = 0.5
+const SCORE = 4
 
 var life:int
 var can_shoot:bool
@@ -40,6 +42,7 @@ func _ready():
 	connect("grenade_launched", $Grenade, "prepare")
 	life = 4
 	bezier_delta = 0
+	connect("killed", get_parent(), "increase_score")
 
 func set_start_position(n:int): #0,1,2,3 = LU, RU, LD, RD
 	state = "preparing"
@@ -116,15 +119,16 @@ func take_damage():
 		blinkTimer.start()
 
 func die():
+	emit_signal("killed", SCORE)
 	if has_grenade:
 		$wings.play("death")
 		$body.play("death_with_grenade")
 	else:
-		$wings.play("death_wo_grenade")
+		$wings.play("death")
 		$body.play("death_wo_grenade")
 	$CollisionShape2D.disabled= true
-	deathTimer.set_wait_time(DEATH_TIME)
-	deathTimer.start()
+#	deathTimer.set_wait_time(DEATH_TIME)
+#	deathTimer.start()
 
 func _on_Getting_Shot(from:KinematicBody2D):
 	take_damage()
@@ -158,4 +162,5 @@ func _on_ThrowTimer_timeout():
 func _on_body_animation_finished():
 	if state == "throw":
 		state = "idle_wo_grenade"
-	pass # Replace with function body.
+	if $body.animation == "death_with_grenade" or $body.animation == "death_wo_grenade":
+		queue_free()

@@ -7,6 +7,7 @@ var Projectile = preload("res://Scenes/Projectile.tscn")
 var Shot_Sound = preload("res://Sounds/shot.wav")
 
 signal player_dead
+signal took_damage
 
 const INVINCIBILITY_TIME = 3
 const MOVEMENT_REDUCTION = 50 #percentage
@@ -41,6 +42,7 @@ func _ready():
 	$body.animation = state
 	$body.playing = true
 	connect("player_dead", get_parent(), "_on_player_shindeiru")	
+	connect("took_damage", get_parent().get_node("Lives"), "decrease_lives")
 
 func _physics_process(_delta):
 	if not disabled:
@@ -107,6 +109,7 @@ func take_damage():
 		respawnTimer.set_wait_time(RESPAWN_TIME)
 		respawnTimer.start()
 		
+		emit_signal("took_damage")
 		#invincible = true
 		$CollisionShape2D.disabled = true
 		

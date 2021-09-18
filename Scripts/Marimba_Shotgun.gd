@@ -18,8 +18,10 @@ const RELOAD_TIME = 4
 const BRAKE_DISTANCE = 0.60
 const BLINK_TIME = 0.08
 const SPREAD_AMOUNT = 6
+const SCORE = 6
 
 signal on_shot_processed
+signal killed
 
 var life:int
 var can_shoot:bool
@@ -34,7 +36,6 @@ var startSpeed:Vector2
 var brakePoint:Vector2
 var position_left:Vector2
 var position_right:Vector2
-var side:bool #left = false, right = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,7 +51,7 @@ func _ready():
 	$body.playing = true
 	$wings.frame = randi()%4
 	$wings.playing = true
-	side = false
+	connect("killed", get_parent(), "increase_score")
 
 func fire():
 	if can_shoot:
@@ -94,6 +95,7 @@ func take_damage():
 		blinkTimer.start()
 
 func die():
+	emit_signal("killed", SCORE)
 	$wings.play("death")
 	$body.play("death")
 	$CollisionShape2D.disabled= true
