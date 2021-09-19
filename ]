@@ -28,7 +28,7 @@ var score:int
 
 func _ready():
 	score = 0
-	pos = randi() % 4
+	pos = 0
 	last_pos = 0
 	
 	GRENADIER_SPAWN_TIME = 15
@@ -70,7 +70,9 @@ func spawn(which:int):
 	randomize()
 	_m.position = Vector2(20 + randi()%140, -100)
 	if which == 2:
-		pos = (pos +1 ) %4
+		pos = randi()%4
+		if pos == last_pos:
+			pos = (pos + 1) % 4
 		_m.set_start_position(pos)
 		last_pos = pos
 	add_child(_m)
@@ -79,18 +81,17 @@ func _on_Grenadier_timeout():
 	for i in range(GRENADIER_SPAWN_AMOUNT):
 		spawn(2)
 
-	if stage_timer.time_left < 30:
-		GRENADIER_SPAWN_AMOUNT = 3
-		return
-	if stage_timer.time_left < 75:
+	if stage_timer.time_left < 105:
 		GRENADIER_SPAWN_AMOUNT = 2
 		return
 	if stage_timer.time_left < 90:
 		GRENADIER_SPAWN_AMOUNT = 1
 		return
-	if stage_timer.time_left < 105:
+	if stage_timer.time_left < 75:
 		GRENADIER_SPAWN_AMOUNT = 2
 		return
+	if stage_timer.time_left < 60:
+		GRENADIER_SPAWN_AMOUNT = 2
 	
 
 func _on_Shotgun_timeout():

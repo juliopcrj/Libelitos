@@ -19,7 +19,7 @@ const RELOAD_TIME = 4
 const BRAKE_DISTANCE = 0.60
 const BLINK_TIME = 0.08
 const SPREAD_AMOUNT = 6
-const SCORE = 6
+const SCORE = 5
 
 signal on_shot_processed
 signal killed
@@ -52,7 +52,7 @@ func _ready():
 	shotTimer.set_wait_time(wait_time_to_shoot)
 	shotTimer.start()
 	max_shots = 2
-	life = 6
+	life = SCORE
 	spent_shots = 0
 	state = "idle"
 	$body.playing = true

@@ -11,7 +11,7 @@ signal player_dead
 signal took_damage
 
 const INVINCIBILITY_TIME = 3
-const MOVEMENT_REDUCTION = 65 #percentage
+const MOVEMENT_REDUCTION = 60 #percentage
 const RESPAWN_TIME = 2
 const AFTER_DEATH_SCATTER = 15
 const SCATTER_SPEED = 200
@@ -162,7 +162,7 @@ func _on_respawnTimer_timeout():
 
 
 func _on_body_animation_finished():
-	if $body.animation == "death" and life == 0:
+	if $body.animation == "death" and life == -1:
 		emit_signal("player_dead")
 	pass # Replace with function body.
 
