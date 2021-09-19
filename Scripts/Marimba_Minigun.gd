@@ -6,6 +6,8 @@ const _t = preload("res://Scripts/tools.gd")
 var GameTools = _t.new()
 
 var Projectile = preload("res://Scenes/Projectile.tscn")
+var Shot_Sound = load("res://Sounds/mini_marimba.wav")
+
 onready var shotTimer = get_node("ShotTimer")
 onready var moveTimer = get_node("MoveTimer")
 onready var reloadTimer = get_node("ReloadTimer")
@@ -36,13 +38,17 @@ var state
 var startPoint:Vector2
 var startSpeed:Vector2
 var brakePoint:Vector2
-
+var wait_time_to_shoot
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	can_shoot = true
+	$Audio.stream = Shot_Sound
+	$Audio.volume_db = -10
 	can_move = true
 	randomize()
+	wait_time_to_shoot = randf()*2
+	shotTimer.set_wait_time(wait_time_to_shoot)
+	shotTimer.start()
 	max_shots = randi() % 10 + 5
 	life = 2
 	spent_shots = 0
@@ -54,6 +60,7 @@ func _ready():
 
 func fire():
 	if can_shoot:
+		$Audio.play(0)
 		state = "shooting"
 		var _p = Projectile.instance()
 		_p.aim(0, BULLET_SPEED)

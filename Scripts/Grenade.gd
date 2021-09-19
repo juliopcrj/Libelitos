@@ -4,6 +4,8 @@ extends KinematicBody2D
 onready var GameTools = preload("../Scripts/tools.gd").new()
 
 var Projectile = preload("res://Scenes/Projectile.tscn")
+var BlipSound = load("res://Sounds/granada_bip.wav")
+var BlastSound = load("res://Sounds/granada_explode.wav")
 onready var finalCountdown = get_node("FinalCountdown")
 
 # explosion time
@@ -25,6 +27,8 @@ var scatter_amount:int
 var speed:float
 
 func prepare():
+	$Audio.stream = BlipSound
+	$Audio.volume_db = -10
 	randomize()
 	explosion_timer = MIN_TIME + randf()*(MAX_TIME-MIN_TIME)
 	speed = MAX_SPEED #may be changed to random
@@ -45,6 +49,8 @@ func _process(_delta):
 	
 
 func explode():
+	$Audio.stream = BlastSound
+	$Audio.play(0)
 	$Sprite.speed_scale = 1
 	$Sprite.play("megumin")
 	var step = (PI * 2)/scatter_amount
@@ -61,8 +67,10 @@ func _on_FinalCountdown_timeout():
 	explode()
 	finalCountdown.stop()
 
-
-
 func _on_Sprite_animation_finished():
-	if $Sprite.animation == "megumin":
+	if $Sprite.animation != "megumin":
+		$Audio.play(0)
+
+func _on_Audio_finished():
+	if $Audio.stream == BlastSound:
 		queue_free()

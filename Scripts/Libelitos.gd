@@ -5,6 +5,7 @@ var GameTools = _t.new()
 
 var Projectile = preload("res://Scenes/Projectile.tscn")
 var Shot_Sound = preload("res://Sounds/shot.wav")
+var Death_Sound = preload("res://Sounds/libelitos_death.wav")
 
 signal player_dead
 signal took_damage
@@ -112,6 +113,8 @@ func take_damage():
 		disabled = true
 		respawnTimer.set_wait_time(RESPAWN_TIME)
 		respawnTimer.start()
+		$AudioStreamPlayer2D.stream = Death_Sound
+		$AudioStreamPlayer2D.play(0)
 		
 		emit_signal("took_damage")
 		#invincible = true
@@ -143,6 +146,7 @@ func after_death():
 	pass
 
 func _on_respawnTimer_timeout():
+	$AudioStreamPlayer2D.stream = Shot_Sound
 	global_position = Vector2(int(GameTools.SCREEN_SIZE.x/2), int(GameTools.SCREEN_SIZE.y*0.9))
 	disabled = false
 	state = "idle"

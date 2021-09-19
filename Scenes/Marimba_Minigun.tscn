@@ -70,87 +70,87 @@ region = Rect2( 546, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 3 )
-region = Rect2( 624, 0, 78, 66 )
+region = Rect2( 936, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 3 )
-region = Rect2( 702, 0, 78, 66 )
+region = Rect2( 1014, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 3 )
-region = Rect2( 780, 0, 78, 66 )
+region = Rect2( 1092, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 3 )
-region = Rect2( 858, 0, 78, 66 )
+region = Rect2( 1170, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 3 )
-region = Rect2( 936, 0, 78, 66 )
+region = Rect2( 1248, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 3 )
-region = Rect2( 1014, 0, 78, 66 )
+region = Rect2( 1326, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 3 )
-region = Rect2( 1092, 0, 78, 66 )
+region = Rect2( 1404, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 3 )
-region = Rect2( 1170, 0, 78, 66 )
+region = Rect2( 1482, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 3 )
-region = Rect2( 1248, 0, 78, 66 )
+region = Rect2( 1560, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 3 )
-region = Rect2( 1326, 0, 78, 66 )
+region = Rect2( 1638, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 3 )
-region = Rect2( 1404, 0, 78, 66 )
+region = Rect2( 1716, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 3 )
-region = Rect2( 1482, 0, 78, 66 )
+region = Rect2( 1794, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 3 )
-region = Rect2( 1560, 0, 78, 66 )
+region = Rect2( 1872, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 3 )
-region = Rect2( 1638, 0, 78, 66 )
+region = Rect2( 1950, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 3 )
-region = Rect2( 1716, 0, 78, 66 )
+region = Rect2( 2028, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 3 )
-region = Rect2( 1794, 0, 78, 66 )
+region = Rect2( 2106, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 3 )
-region = Rect2( 1872, 0, 78, 66 )
+region = Rect2( 2184, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 3 )
-region = Rect2( 1950, 0, 78, 66 )
+region = Rect2( 624, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 3 )
-region = Rect2( 2028, 0, 78, 66 )
+region = Rect2( 702, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 3 )
-region = Rect2( 2106, 0, 78, 66 )
+region = Rect2( 780, 0, 78, 66 )
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 3 )
-region = Rect2( 2184, 0, 78, 66 )
+region = Rect2( 858, 0, 78, 66 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
@@ -159,15 +159,15 @@ animations = [ {
 "name": "idle",
 "speed": 11.0
 }, {
-"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
-"loop": true,
-"name": "shooting",
-"speed": 15.0
-}, {
-"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
 "loop": false,
 "name": "death",
 "speed": 16.0
+}, {
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
+"loop": true,
+"name": "shooting",
+"speed": 15.0
 } ]
 
 [node name="Marimba_Minigun" type="KinematicBody2D"]
@@ -200,6 +200,8 @@ frames = SubResource( 6 )
 [node name="body" type="AnimatedSprite" parent="."]
 frames = SubResource( 36 )
 animation = "idle"
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_ShotTimer_timeout"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]

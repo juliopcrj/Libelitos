@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Libelitos.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Background.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/HUD.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Za_Warudo.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Lives.gd" type="Script" id=6]
+[ext_resource path="res://Sounds/libelito theme song.wav" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 7
@@ -103,7 +104,13 @@ texture = ExtResource( 4 )
 region_enabled = true
 region_rect = Rect2( 113, 3, 12, 9 )
 
+[node name="BG_Song" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -12.0
+autoplay = true
+
 [connection signal="timeout" from="Grenadier" to="." method="_on_Grenadier_timeout"]
 [connection signal="timeout" from="Shotgun" to="." method="_on_Shotgun_timeout"]
 [connection signal="timeout" from="Minigun" to="." method="_on_Minigun_timeout"]
 [connection signal="timeout" from="StageTimer" to="." method="_on_StageTimer_timeout"]
+[connection signal="finished" from="BG_Song" to="." method="_on_BG_Song_finished"]

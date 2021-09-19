@@ -4,6 +4,7 @@ const _t = preload("res://Scripts/tools.gd")
 var GameTools = _t.new()
 
 var Projectile = preload("res://Scenes/Projectile.tscn")
+var Shot_Sound = load("res://Sounds/shot_marimba.wav")
 onready var shotTimer = get_node("ShotTimer")
 onready var moveTimer = get_node("MoveTimer")
 onready var reloadTimer = get_node("ReloadTimer")
@@ -36,14 +37,20 @@ var startSpeed:Vector2
 var brakePoint:Vector2
 var position_left:Vector2
 var position_right:Vector2
+var wait_time_to_shoot
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Audio.stream = Shot_Sound
+	$Audio.volume_db = -10
 	position_left = Vector2(30,30)
 	position_right = Vector2(150,30)
-	can_shoot = true
+	can_shoot = false
 	can_move = true
 	randomize()
+	wait_time_to_shoot = randf()*2
+	shotTimer.set_wait_time(wait_time_to_shoot)
+	shotTimer.start()
 	max_shots = 2
 	life = 6
 	spent_shots = 0
@@ -55,6 +62,7 @@ func _ready():
 
 func fire():
 	if can_shoot:
+		$Audio.play(0)
 		var step = (PI * 2) /(SPREAD_AMOUNT * 6)
 		var root = get_tree().current_scene
 		for i in range(SPREAD_AMOUNT, SPREAD_AMOUNT*2 + 1):
@@ -149,6 +157,7 @@ func _on_BlinkTimer_timeout():
 	blinkTimer.stop()
 
 func _on_SecondShotTimer_timeout():
+	$Audio.play(0)
 	var step = (PI * 2) /(SPREAD_AMOUNT * 6)
 	var root = get_tree().current_scene
 	for i in range(SPREAD_AMOUNT, SPREAD_AMOUNT*2 + 1):
@@ -165,3 +174,6 @@ func _on_body_animation_finished():
 	if $body.animation == "shooting":
 		state = "idle"
 
+func _on_BG_Song_finished():
+	print("terminou")
+	$BG_song.play(0)

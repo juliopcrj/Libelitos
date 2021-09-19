@@ -49,7 +49,7 @@ animations = [ {
 "name": "idle",
 "speed": 16.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), null ],
 "loop": false,
 "name": "megumin",
 "speed": 20.0
@@ -74,5 +74,8 @@ frames = SubResource( 11 )
 animation = "idle"
 speed_scale = 0.5
 
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="timeout" from="FinalCountdown" to="." method="_on_FinalCountdown_timeout"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
+[connection signal="finished" from="Audio" to="." method="_on_Audio_finished"]
