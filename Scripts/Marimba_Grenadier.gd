@@ -21,8 +21,8 @@ const FLEE_TIME = 4 #seconds duh
 const THROW_TIME = 0.72
 const MOVEMENT_SPEED = 100
 const PREPARE_RATE = 0.5
-const SCORE = 4
 
+var score = 4
 var life:int
 var can_shoot:bool
 var movement:Vector2
@@ -32,6 +32,7 @@ var start_point:Vector2
 var end_point:Vector2
 var mid_point:Vector2
 var bezier_delta:float
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -119,7 +120,11 @@ func take_damage():
 		blinkTimer.start()
 
 func die():
-	emit_signal("killed", SCORE)
+	if state == "throw":
+		score *= 2
+	if state == "fleeing" and position.y < 30:
+		score *= 3
+	emit_signal("killed", score)
 	if has_grenade:
 		$wings.play("death")
 		$body.play("death_with_grenade")

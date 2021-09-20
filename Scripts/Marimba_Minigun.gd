@@ -22,11 +22,11 @@ const RELOAD_TIME = 2
 const BRAKE_DISTANCE = 0.60
 const DEATH_TIME = 1.02
 const BLINK_TIME = 0.08
-const SCORE = 2
 
 signal on_shot_processed
 signal killed
 
+var score = 2
 var life:int
 var can_shoot:bool
 var can_move:bool
@@ -39,9 +39,10 @@ var startPoint:Vector2
 var startSpeed:Vector2
 var brakePoint:Vector2
 var wait_time_to_shoot
-
+var initial_time
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	initial_time = OS.get_unix_time()
 	$Audio.stream = Shot_Sound
 	$Audio.volume_db = -10
 	can_move = true
@@ -108,7 +109,12 @@ func take_damage():
 		blinkTimer.start()
 
 func die():
-	emit_signal("killed", SCORE)
+	var elapsed = OS.get_unix_time() - initial_time
+	if elapsed > 5:
+		score *= 3
+	elif elapsed > 2:
+		score *=2
+	emit_signal("killed", score)
 	$wings.play("death")
 	$body.play("death")
 	$CollisionShape2D.disabled= true

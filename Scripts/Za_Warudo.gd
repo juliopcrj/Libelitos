@@ -61,6 +61,7 @@ func _process(delta):
 	if ( not find_node("*Marimba*", true, false)) and $StageTimer.is_stopped():
 		var score_file = File.new()
 		score_file.open("user://score.dat", File.WRITE)
+		score *= $Libelitos.get_life_multiplier()
 		score_file.store_string(str(score))
 		score_file.close()
 		get_tree().change_scene("res://Scenes/Victory.tscn")

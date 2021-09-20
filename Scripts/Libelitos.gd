@@ -169,3 +169,6 @@ func _on_body_animation_finished():
 # não vai ser usado, porque o libelo colide com marimba
 func _on_Getting_Shot(from:KinematicBody2D):
 	pass
+
+func get_life_multiplier():
+	return life + 1
