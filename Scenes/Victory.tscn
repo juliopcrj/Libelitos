@@ -21,8 +21,8 @@ region_rect = Rect2( 360, 0, 180, 320 )
 [node name="Score" type="RichTextLabel" parent="."]
 margin_left = 104.0
 margin_top = 252.0
-margin_right = 132.0
-margin_bottom = 260.0
+margin_right = 144.0
+margin_bottom = 264.0
 custom_fonts/normal_font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

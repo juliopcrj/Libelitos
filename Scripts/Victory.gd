@@ -6,7 +6,7 @@ func _ready():
 	var score = score_file.get_as_text()
 	score_file.close()
 
-	$Score.text = String(score).pad_zeros(3)
+	$Score.text = String(score).pad_zeros(4)
 
 
 func _process(_delta):

@@ -15,7 +15,6 @@ var MINIGUN_SPAWN_TIME
 var SHOTGUN_SPAWN_TIME
 const STAGE_TIME = 120
 
-
 var GRENADIER_SPAWN_AMOUNT
 var MINIGUN_SPAWN_AMOUNT
 var SHOTGUN_SPAWN_AMOUNT
@@ -57,7 +56,7 @@ func _ready():
 
 func _process(delta):
 	$Labels/Time.text = String(int(stage_timer.time_left))
-	$Labels/Score.text = String(score).pad_zeros(3)
+	$Labels/Score.text = String(score).pad_zeros(4)
 	if ( not find_node("*Marimba*", true, false)) and $StageTimer.is_stopped():
 		var score_file = File.new()
 		score_file.open("user://score.dat", File.WRITE)
